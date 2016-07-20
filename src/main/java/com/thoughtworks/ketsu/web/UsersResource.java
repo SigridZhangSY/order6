@@ -7,10 +7,7 @@ import com.thoughtworks.ketsu.web.exception.InvalidParameterException;
 import com.thoughtworks.ketsu.web.jersey.Routes;
 import com.thoughtworks.ketsu.web.UserResource;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -37,7 +34,7 @@ public class UsersResource {
     @Path("{userId}")
     public UserResource getUserById(@PathParam("userId") long userId,
                                     @Context UserRepository userRepository){
-        User user = userRepository.findUserById(userId).get();
+        User user = userRepository.findUserById(userId).orElseThrow(() -> new NotFoundException("user not found"));
         return new UserResource(user);
     }
 }
