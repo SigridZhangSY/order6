@@ -1,5 +1,7 @@
 package com.thoughtworks.ketsu.resources;
 
+import com.thoughtworks.ketsu.infrastructure.core.Product;
+import com.thoughtworks.ketsu.infrastructure.core.ProductRepository;
 import com.thoughtworks.ketsu.infrastructure.core.User;
 import com.thoughtworks.ketsu.infrastructure.core.UserRepository;
 import com.thoughtworks.ketsu.support.ApiSupport;
@@ -25,6 +27,9 @@ import static org.junit.Assert.assertThat;
 public class UsersResourceTest extends ApiSupport {
     @Inject
     UserRepository userRepository;
+
+    @Inject
+    ProductRepository productRepository;
 
     @Before
     public void setUp() throws Exception {
@@ -61,6 +66,14 @@ public class UsersResourceTest extends ApiSupport {
         User user  = userRepository.createUser(TestHelper.userMap("John"));
         Response get = get("users/" + (user.getId()+1));
         assertThat(get.getStatus(), is(HttpStatus.NOT_FOUND_404.getStatusCode()));
+    }
+
+    @Test
+    public void should_return_201_when_create_order_for_user(){
+        Product product = productRepository.createProduct(TestHelper.productMap("apple"));
+        User user  = userRepository.createUser(TestHelper.userMap("John"));
+        Response post = post("users/" + user.getId() + "/orders", TestHelper.orderMap("kayla", product.getId()));
+        assertThat(post.getStatus(), is(HttpStatus.CREATED_201.getStatusCode()));
     }
 
 }
