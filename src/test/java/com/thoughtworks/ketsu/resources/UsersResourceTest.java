@@ -78,4 +78,16 @@ public class UsersResourceTest extends ApiSupport {
 
     }
 
+    @Test
+    public void should_return_400_when_create_order_for_user_with_name_is_empty(){
+        Product product = productRepository.createProduct(TestHelper.productMap("apple"));
+        User user  = userRepository.createUser(TestHelper.userMap("John"));
+        Map<String, Object> map = TestHelper.orderMap("kayla", product.getId());
+        map.remove("name");
+        Response post = post("users/" + user.getId() + "/orders", map);
+        assertThat(post.getStatus(), is(HttpStatus.BAD_REQUEST_400.getStatusCode()));
+        final List<Map<String, Object>> errorInfo = post.readEntity(List.class);
+        assertThat(errorInfo.size(), is(1));
+    }
+
 }
