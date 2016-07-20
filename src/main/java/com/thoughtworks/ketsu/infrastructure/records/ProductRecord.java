@@ -13,6 +13,10 @@ public class ProductRecord implements Product {
         this.id = id;
     }
 
+    public ProductRecord(){
+
+    }
+
     @Override
     public long getId() {
         return id;

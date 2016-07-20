@@ -6,11 +6,11 @@
 
   1. return 201
 
-     - return 201 when create product — 5
+     - return 201 when create product — 5 5
 
-     - return uri when create product — 5
+     - return uri when create product — 5 6
 
-     - save and find product in product repository  — 15
+     - save and find product in product repository  — 15 11
 
        (ProductRepository.createProduct,
 
