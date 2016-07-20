@@ -11,6 +11,9 @@ public class UserRecord implements User{
         this.id = id;
     }
 
+    public UserRecord(){
+    }
+
     @Override
     public long getId() {
         return id;

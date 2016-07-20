@@ -9,4 +9,8 @@
         P.description as description,
         P.price as price
     </sql>
+    <sql id="user">
+        U.id as id,
+        U.name as name
+    </sql>
 </mapper>
