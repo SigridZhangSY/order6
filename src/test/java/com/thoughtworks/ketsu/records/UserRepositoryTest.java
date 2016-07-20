@@ -22,4 +22,11 @@ public class UserRepositoryTest {
         User user = userRepository.createUser(TestHelper.userMap("John"));
         assertThat(user.getName(), is("John"));
     }
+
+    @Test
+    public void should_find_user_by_id(){
+        User user = userRepository.createUser(TestHelper.userMap("John"));
+        User user_res = userRepository.findUserById(user.getId()).get();
+        assertThat(user_res.getId(), is(user.getId()));
+    }
 }

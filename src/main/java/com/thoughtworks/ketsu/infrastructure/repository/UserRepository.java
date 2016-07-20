@@ -5,6 +5,7 @@ import com.thoughtworks.ketsu.infrastructure.mybatis.mappers.UserMapper;
 
 import javax.inject.Inject;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by syzhang on 7/20/16.
@@ -18,5 +19,10 @@ public class UserRepository implements com.thoughtworks.ketsu.infrastructure.cor
     public User createUser(Map<String, Object> info) {
         userMapper.save(info);
         return userMapper.findById(Long.valueOf(String.valueOf(info.get("id"))));
+    }
+
+    @Override
+    public Optional<User> findUserById(long userId) {
+        return Optional.ofNullable(userMapper.findById(userId));
     }
 }
