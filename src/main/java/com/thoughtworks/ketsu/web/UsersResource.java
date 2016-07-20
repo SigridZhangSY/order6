@@ -4,10 +4,12 @@ import com.thoughtworks.ketsu.infrastructure.core.UserRepository;
 import com.thoughtworks.ketsu.infrastructure.records.UserRecord;
 import com.thoughtworks.ketsu.web.exception.InvalidParameterException;
 import com.thoughtworks.ketsu.web.jersey.Routes;
+import com.thoughtworks.ketsu.web.UserResource;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -29,5 +31,11 @@ public class UsersResource {
         if(fields.size() > 0)
             throw new InvalidParameterException(fields);
         return Response.created(routes.userUri(userRepository.createUser(info))).build();
+    }
+
+    @Path("{userId}")
+    public UserResource getUserById(@PathParam("userId") long userId,
+                                    @Context UserRepository userRepository){
+        return new UserResource(new UserRecord(Long.valueOf(userId)));
     }
 }

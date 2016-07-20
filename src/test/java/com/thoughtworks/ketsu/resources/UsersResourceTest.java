@@ -1,5 +1,7 @@
 package com.thoughtworks.ketsu.resources;
 
+import com.thoughtworks.ketsu.infrastructure.core.User;
+import com.thoughtworks.ketsu.infrastructure.core.UserRepository;
 import com.thoughtworks.ketsu.support.ApiSupport;
 import com.thoughtworks.ketsu.support.ApiTestRunner;
 import com.thoughtworks.ketsu.support.TestHelper;
@@ -8,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import javax.inject.Inject;
 import javax.ws.rs.core.Response;
 
 import java.util.HashMap;
@@ -20,6 +23,9 @@ import static org.junit.Assert.assertThat;
 
 @RunWith(ApiTestRunner.class)
 public class UsersResourceTest extends ApiSupport {
+    @Inject
+    UserRepository userRepository;
+
     @Before
     public void setUp() throws Exception {
         super.setUp();
@@ -39,6 +45,13 @@ public class UsersResourceTest extends ApiSupport {
         assertThat(post.getStatus(), is(HttpStatus.BAD_REQUEST_400.getStatusCode()));
         final List<Map<String, Object>> errorInfo = post.readEntity(List.class);
         assertThat(errorInfo.size(), is(1));
+    }
+
+    @Test
+    public void should_return_200_when_find_user(){
+        User user  = userRepository.createUser(TestHelper.userMap("John"));
+        Response get = get("users/" + user.getId());
+        assertThat(get.getStatus(), is(HttpStatus.OK_200.getStatusCode()));
     }
 
 }
