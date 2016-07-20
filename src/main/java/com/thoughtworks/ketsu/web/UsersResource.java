@@ -1,5 +1,6 @@
 package com.thoughtworks.ketsu.web;
 
+import com.thoughtworks.ketsu.infrastructure.core.User;
 import com.thoughtworks.ketsu.infrastructure.core.UserRepository;
 import com.thoughtworks.ketsu.infrastructure.records.UserRecord;
 import com.thoughtworks.ketsu.web.exception.InvalidParameterException;
@@ -36,6 +37,7 @@ public class UsersResource {
     @Path("{userId}")
     public UserResource getUserById(@PathParam("userId") long userId,
                                     @Context UserRepository userRepository){
-        return new UserResource(new UserRecord(Long.valueOf(userId)));
+        User user = userRepository.findUserById(userId).get();
+        return new UserResource(user);
     }
 }

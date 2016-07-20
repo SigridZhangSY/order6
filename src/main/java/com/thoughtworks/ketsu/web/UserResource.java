@@ -16,7 +16,7 @@ public class UserResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUser(){
-        return "OK";
+    public User getUser(){
+        return user;
     }
 }
