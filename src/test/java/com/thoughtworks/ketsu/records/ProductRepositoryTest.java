@@ -32,4 +32,11 @@ public class ProductRepositoryTest {
         assertThat(list.size(), is(1));
         assertThat(list.get(0).getName(), is("apple"));
     }
+
+    @Test
+    public void should_find_product_by_id(){
+        Product product = productRepository.createProduct(TestHelper.productMap("apple"));
+        Product product_res = productRepository.findProductById(product.getId());
+        assertThat(product_res.getId(), is(product.getId()));
+    }
 }

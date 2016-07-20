@@ -8,4 +8,6 @@ public interface ProductRepository {
     Product createProduct(Map<String, Object> info);
 
     List<Product> getAllProduct();
+
+    Product findProductById(long productId);
 }

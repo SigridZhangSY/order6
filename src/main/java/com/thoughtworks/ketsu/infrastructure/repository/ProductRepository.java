@@ -23,4 +23,9 @@ public class ProductRepository implements com.thoughtworks.ketsu.infrastructure.
     public List<Product> getAllProduct() {
         return productMapper.getAll();
     }
+
+    @Override
+    public Product findProductById(long productId) {
+        return productMapper.findById(productId);
+    }
 }
