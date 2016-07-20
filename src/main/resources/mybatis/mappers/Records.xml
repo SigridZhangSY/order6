@@ -13,4 +13,20 @@
         <id column="id" property="id"/>
         <result column="name" property="name"/>
     </resultMap>
+    <resultMap id="order" type="com.thoughtworks.ketsu.infrastructure.records.OrderRecord">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="name" property="name"/>
+        <result column="address" property="address"/>
+        <result column="phone" property="phone"/>
+        <result column="total_price" property="totalPrice"/>
+        <result column="time" property="time"/>
+        <collection property="items" ofType="com.thoughtworks.ketsu.infrastructure.records.OrderItemRecord">
+            <result column="product_id" property="productId"/>
+            <result column="quantity" property="quantity"/>
+            <result column="amount" property="amount"/>
+        </collection>
+    </resultMap>
 </mapper>
+
+
