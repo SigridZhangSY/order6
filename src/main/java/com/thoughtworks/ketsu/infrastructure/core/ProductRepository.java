@@ -2,6 +2,7 @@ package com.thoughtworks.ketsu.infrastructure.core;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 public interface ProductRepository {
@@ -9,5 +10,5 @@ public interface ProductRepository {
 
     List<Product> getAllProduct();
 
-    Product findProductById(long productId);
+    Optional<Product> findProductById(long productId);
 }

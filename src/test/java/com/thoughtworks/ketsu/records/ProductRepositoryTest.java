@@ -36,7 +36,7 @@ public class ProductRepositoryTest {
     @Test
     public void should_find_product_by_id(){
         Product product = productRepository.createProduct(TestHelper.productMap("apple"));
-        Product product_res = productRepository.findProductById(product.getId());
+        Product product_res = productRepository.findProductById(product.getId()).get();
         assertThat(product_res.getId(), is(product.getId()));
     }
 }
