@@ -59,6 +59,6 @@ public class UserResource {
     @Path("orders/{orderId}")
     @Produces(MediaType.APPLICATION_JSON)
     public Order findOrderById(@PathParam("orderId") long orderId){
-        return user.findOrderById(orderId).get();
+        return user.findOrderById(orderId).orElseThrow(() -> new NotFoundException("order not found"));
     }
 }
