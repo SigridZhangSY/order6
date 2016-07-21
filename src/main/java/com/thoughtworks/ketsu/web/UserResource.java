@@ -54,4 +54,11 @@ public class UserResource {
     public List<Order> listOrdersForUser(){
         return user.listOrder();
     }
+
+    @GET
+    @Path("orders/{orderId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String findOrderById(){
+        return "OK";
+    }
 }
