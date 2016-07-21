@@ -86,6 +86,6 @@ public class UserResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Payment createPaymentForOrder(@PathParam("orderId") long orderId){
         Order order = user.findOrderById(orderId).orElseThrow(() -> new NotFoundException("order not found"));
-        return order.findPayment().get();
+        return order.findPayment().orElseThrow(() -> new NotFoundException("payment not found"));
     }
 }
