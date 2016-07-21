@@ -37,4 +37,13 @@ public class UserRecordTest {
         assertThat(list.size(), is(1));
         assertThat(list.get(0).getName(), is("kayla"));
     }
+
+    @Test
+    public void should_find_order_by_id_for_user(){
+        User user = userRepository.createUser(TestHelper.userMap("John"));
+        Product product = productRepository.createProduct(TestHelper.productMap("apple"));
+        Order order = user.createOrder(TestHelper.orderMap("kayla", product.getId()));
+        Order order_res = user.findOrderById(order.getId()).get();
+        assertThat(order_res.getId(), is(order.getId()));
+    }
 }

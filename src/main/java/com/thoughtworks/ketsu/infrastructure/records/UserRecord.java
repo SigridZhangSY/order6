@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class UserRecord implements User, Record{
     private long id;
@@ -72,5 +73,10 @@ public class UserRecord implements User, Record{
     @Override
     public List<Order> listOrder() {
         return orderMapper.getOrders(id);
+    }
+
+    @Override
+    public Optional<Order> findOrderById(long orderId) {
+        return Optional.ofNullable(orderMapper.findById(orderId));
     }
 }
