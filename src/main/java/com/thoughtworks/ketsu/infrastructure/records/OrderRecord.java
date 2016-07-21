@@ -77,8 +77,12 @@ public class OrderRecord implements Order, Record {
     public Payment createPayment(Map<String, Object> info) {
         info.put("order_id", id);
         paymentMapper.save(info);
-
         return paymentMapper.findByOrderId(id);
+    }
+
+    @Override
+    public Optional<Payment> findPayment() {
+        return Optional.ofNullable(paymentMapper.findByOrderId(id));
     }
 
     @Override
