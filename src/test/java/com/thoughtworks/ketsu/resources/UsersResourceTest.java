@@ -147,4 +147,16 @@ public class UsersResourceTest extends ApiSupport {
         assertThat(errorInfo.size(), is(2));
     }
 
+    @Test
+    public void should_return_200_when_find_payment_for_order(){
+        Product product = productRepository.createProduct(TestHelper.productMap("apple"));
+        User user  = userRepository.createUser(TestHelper.userMap("John"));
+        Order order = user.createOrder(TestHelper.orderMap("kayla", product.getId()));
+        Payment payment = order.createPayment(TestHelper.paymentMap());
+
+        Response get = get("users/" + user.getId() + "/orders/" + order.getId() + "/payment");
+        assertThat(get.getStatus(), is(HttpStatus.OK_200.getStatusCode()));
+
+    }
+
 }
