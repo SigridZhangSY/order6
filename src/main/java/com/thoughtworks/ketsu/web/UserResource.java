@@ -47,4 +47,11 @@ public class UserResource {
         Order order = user.createOrder(info);
         return Response.created(routes.orderUri(order)).build();
     }
+
+    @GET
+    @Path("orders")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String listOrdersForUser(){
+        return "OK";
+    }
 }

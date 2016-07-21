@@ -1,9 +1,6 @@
 package com.thoughtworks.ketsu.resources;
 
-import com.thoughtworks.ketsu.infrastructure.core.Product;
-import com.thoughtworks.ketsu.infrastructure.core.ProductRepository;
-import com.thoughtworks.ketsu.infrastructure.core.User;
-import com.thoughtworks.ketsu.infrastructure.core.UserRepository;
+import com.thoughtworks.ketsu.infrastructure.core.*;
 import com.thoughtworks.ketsu.support.ApiSupport;
 import com.thoughtworks.ketsu.support.ApiTestRunner;
 import com.thoughtworks.ketsu.support.TestHelper;
@@ -88,6 +85,15 @@ public class UsersResourceTest extends ApiSupport {
         assertThat(post.getStatus(), is(HttpStatus.BAD_REQUEST_400.getStatusCode()));
         final List<Map<String, Object>> errorInfo = post.readEntity(List.class);
         assertThat(errorInfo.size(), is(1));
+    }
+
+    @Test
+    public void should_return_200_when_list_orders_for_user(){
+        Product product = productRepository.createProduct(TestHelper.productMap("apple"));
+        User user  = userRepository.createUser(TestHelper.userMap("John"));
+        Order order = user.createOrder(TestHelper.orderMap("kayla", product.getId()));
+        Response get = get("users/" + user.getId() + "/orders");
+        assertThat(get.getStatus(), is(HttpStatus.OK_200.getStatusCode()));
     }
 
 }
