@@ -100,12 +100,17 @@ public class UsersResourceTest extends ApiSupport {
     }
 
     @Test
-    public void should_return_200_when_find_order_by_id_for_user(){
+    public void should_return_detail_when_find_order_by_id_for_user(){
         Product product = productRepository.createProduct(TestHelper.productMap("apple"));
         User user  = userRepository.createUser(TestHelper.userMap("John"));
         Order order = user.createOrder(TestHelper.orderMap("kayla", product.getId()));
         Response get = get("users/" + user.getId() + "/orders/" + order.getId());
         assertThat(get.getStatus(), is(HttpStatus.OK_200.getStatusCode()));
+        final Map<String, Object> res = get.readEntity(Map.class);
+        assertThat(res.get("uri"), is("/users/" + user.getId() + "/orders/" + order.getId()));
+        List<Map<String, Object>> items = (List<Map<String, Object>>)res.get("order_items");
+        assertThat(items.size(), is(1));
+        assertThat(String.valueOf(items.get(0).get("product_id")), is(String.valueOf(product.getId())));
     }
 
 }

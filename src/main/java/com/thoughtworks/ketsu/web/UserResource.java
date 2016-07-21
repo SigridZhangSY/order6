@@ -58,7 +58,7 @@ public class UserResource {
     @GET
     @Path("orders/{orderId}")
     @Produces(MediaType.APPLICATION_JSON)
-    public String findOrderById(){
-        return "OK";
+    public Order findOrderById(@PathParam("orderId") long orderId){
+        return user.findOrderById(orderId).get();
     }
 }
