@@ -135,4 +135,16 @@ public class UsersResourceTest extends ApiSupport {
         assertThat(Pattern.matches(".*?/users/[0-9-]*/orders/[0-9-]*/payment", post.getLocation().toASCIIString()), is(true));
     }
 
+    @Test
+    public void should_return_400_when_create_payment_for_order_with_pay_type_and_amount_is_empty(){
+        Product product = productRepository.createProduct(TestHelper.productMap("apple"));
+        User user  = userRepository.createUser(TestHelper.userMap("John"));
+        Order order = user.createOrder(TestHelper.orderMap("kayla", product.getId()));
+
+        Response post = post("users/" + user.getId() + "/orders/" + order.getId() + "/payment", new HashMap<String, Object>());
+        assertThat(post.getStatus(), is(HttpStatus.BAD_REQUEST_400.getStatusCode()));
+        final List<Map<String, Object>> errorInfo = post.readEntity(List.class);
+        assertThat(errorInfo.size(), is(2));
+    }
+
 }
