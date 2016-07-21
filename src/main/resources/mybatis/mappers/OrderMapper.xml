@@ -17,4 +17,10 @@
         FROM ORDERITEMS AS T LEFT JOIN ORDERS AS O
         ON T.order_id = O.id WHERE O.id = #{id}
     </select>
+    <select id="getOrders" resultMap="records.order">
+        SELECT
+        <include refid="columns.order"/>
+        FROM ORDERITEMS AS T LEFT JOIN ORDERS AS O
+        ON T.order_id = O.id WHERE O.user_id = #{userId}
+    </select>
 </mapper>

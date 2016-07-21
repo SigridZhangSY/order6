@@ -68,4 +68,9 @@ public class UserRecord implements User, Record{
         orderMapper.save(info);
         return orderMapper.findById(Long.valueOf(String.valueOf(info.get("id"))));
     }
+
+    @Override
+    public List<Order> listOrder() {
+        return orderMapper.getOrders(id);
+    }
 }
