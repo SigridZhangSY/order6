@@ -88,12 +88,15 @@ public class UsersResourceTest extends ApiSupport {
     }
 
     @Test
-    public void should_return_200_when_list_orders_for_user(){
+    public void should_return_detail_when_list_orders_for_user(){
         Product product = productRepository.createProduct(TestHelper.productMap("apple"));
         User user  = userRepository.createUser(TestHelper.userMap("John"));
         Order order = user.createOrder(TestHelper.orderMap("kayla", product.getId()));
         Response get = get("users/" + user.getId() + "/orders");
         assertThat(get.getStatus(), is(HttpStatus.OK_200.getStatusCode()));
+        final List<Map<String, Object>> res = get.readEntity(List.class);
+        assertThat(res.size(), is(1));
+        assertThat(res.get(0).get("uri"), is("/users/" + user.getId() + "/orders/" + order.getId()));
     }
 
 }

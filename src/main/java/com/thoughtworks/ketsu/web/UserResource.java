@@ -51,7 +51,7 @@ public class UserResource {
     @GET
     @Path("orders")
     @Produces(MediaType.APPLICATION_JSON)
-    public String listOrdersForUser(){
-        return "OK";
+    public List<Order> listOrdersForUser(){
+        return user.listOrder();
     }
 }
