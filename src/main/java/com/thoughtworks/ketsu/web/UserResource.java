@@ -2,6 +2,7 @@ package com.thoughtworks.ketsu.web;
 
 
 import com.thoughtworks.ketsu.infrastructure.core.Order;
+import com.thoughtworks.ketsu.infrastructure.core.Payment;
 import com.thoughtworks.ketsu.infrastructure.core.User;
 import com.thoughtworks.ketsu.infrastructure.records.OrderRecord;
 import com.thoughtworks.ketsu.infrastructure.records.PaymentRecord;
@@ -83,7 +84,8 @@ public class UserResource {
     @GET
     @Path("orders/{orderId}/payment")
     @Produces(MediaType.APPLICATION_JSON)
-    public String createPaymentForOrder(){
-        return "OK";
+    public Payment createPaymentForOrder(@PathParam("orderId") long orderId){
+        Order order = user.findOrderById(orderId).orElseThrow(() -> new NotFoundException("order not found"));
+        return order.findPayment().get();
     }
 }
